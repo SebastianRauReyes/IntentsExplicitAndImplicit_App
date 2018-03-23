@@ -2,9 +2,12 @@ package com.rau.sebastian.intentsexplicitandimplicit_app;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
+
+    private static final String TAG = DetailActivity.class.getSimpleName();
 
     private TextView codeText;
     private TextView fullnameText;
@@ -15,6 +18,8 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+
 
         codeText = (TextView)findViewById(R.id.codeText);
         fullnameText = (TextView)findViewById(R.id.fullnameText);
@@ -38,6 +43,9 @@ public class DetailActivity extends AppCompatActivity {
                 amountText.setText(String.valueOf(amount));
             }
 
+            Log.d(TAG,"code :"+ codeText);
+            Log.d(TAG,"code :"+ fullnameText);
+            Log.d(TAG,"code :"+ amountText);
         }
 
 

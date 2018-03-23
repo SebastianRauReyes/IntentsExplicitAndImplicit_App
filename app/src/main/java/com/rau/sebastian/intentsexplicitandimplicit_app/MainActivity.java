@@ -5,15 +5,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "log";
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private EditText codeInput;
     private EditText fullnameInput;
     private EditText amountInput;
+
+    private Button implicitButton;
 
 
     @Override
@@ -21,14 +25,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        codeInput = (EditText)findViewById(R.id.codeInput);
-        fullnameInput = (EditText)findViewById(R.id.fullnameInput);
-        amountInput = (EditText)findViewById(R.id.amountInput);
+        codeInput = findViewById(R.id.codeInput);
+        fullnameInput = findViewById(R.id.fullnameInput);
+        amountInput = findViewById(R.id.amountInput);
+
+
+        implicitButton = findViewById(R.id.implicitButton);
+
+        implicitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "sendImplicit");
+
+                String code = codeInput.getText().toString();
+                String fullname = fullnameInput.getText().toString();
+                String amount = amountInput.getText().toString();
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, "code: "+code+"\nfullname: "+fullname+"\namount: "+amount);
+                intent.setType("text/plain");
+                startActivity(intent);
+
+            }
+        });
+
 
 
     }
 
     public void sendExplicit(View view){
+
+        Log.d(TAG, "sendExplicit");
+
 
         String code = codeInput.getText().toString();
         String fullname = fullnameInput.getText().toString();
@@ -75,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult");
         Log.d(TAG, "requestCode:"+requestCode);
         Log.d(TAG, "resultCode:"+resultCode);
         Log.d(TAG, "data:"+data);
